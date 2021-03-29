@@ -8,7 +8,7 @@
             "uf": "SC",
             "neighboorhood": "atiradores",
             "postalCode": 8924000
-  }.
+  },
 "payments" : [{"paymentType" : "PIX", 
                "number": "0874552113"}, 
               {"paymentType" : "creditCard", 
