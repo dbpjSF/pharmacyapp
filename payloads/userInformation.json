@@ -1,0 +1,19 @@
+{
+"document": "0874552113",
+"name": "Joao da Costa"
+"address": {"street": "Rua Macapa",
+            "number": "322",
+            "city": "Joinville",
+            "country": "Brasil",
+            "uf": "SC",
+            "neighboorhood": "atiradores",
+            "postalCode": 8924000
+  }.
+"payments" : [{"paymentType" : "PIX", 
+               "number": "0874552113"}, 
+              {"paymentType" : "creditCard", 
+               "number": "4108583034294056", 
+               "name": "Joao da Costa", 
+               "validate": "02/29"}
+             ]
+}
