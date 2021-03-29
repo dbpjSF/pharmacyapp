@@ -5,11 +5,11 @@
 
 ## Decisão arquitetural
 
-Baseado em 2 microserviços em spring boot com banco de dados em postgres e utilizando kubernetes para escalar automáticamente, aws(sqs e sns) para servir como mensageria, redis para cachear as requisiçoes, vault para guardar informaçoes sensíveis do usuário.
+Baseado em 2 microserviços em spring boot com banco de dados em postgres e utilizando kubernetes para escalar automaticamente, aws(sqs e sns) para servir como mensageria, redis para cachear as requisições, vault para guardar informações sensíveis do usuário.
 
 ## Micro serviço user-information
  
-Responsável por guardar informações do usuário e informações sensíveis, a API recebe informação(em um formato de DTOs para que a entidade não seja exposta para a API, antes de ser feita a persitencia é feito um mapper para a entidade) passa pelo API gateway(Kong) e persiste as informações na base de dados e também no vault. A base de dados é persistido informações básicas do usuário, como cnpj, nome,endereço... No vault é salvo as informações sensiveis como formas de pagamentos, chaves de pix, cartoes de créditos... A comunicaçao com micro serviços é feito assyncronamente via mensageria utilizando AWS com o uso de tópicos e filas(utilizando tanto padrões como COMMANDS,EVENTS). Também é possível requisições via HTTP. Caso o usuário realize um GET para pegar as informações, não serão voltadas as informações por completo, como numero do cartao apenas os ultimos digitos, pix caso seja o documento a mesma coisa.
+Responsável por guardar informações do usuário e informações sensíveis, a API recebe informação(em um formato de DTOs para que a entidade não seja exposta para a API, antes de ser feita a persitencia é feito um mapper para a entidade) passa pelo API gateway(Kong) e persiste as informações na base de dados e também no vault. A base de dados é persistido informações básicas do usuário, como cnpj, nome,endereço... No vault é salvo as informações sensíveis como formas de pagamentos, chaves de pix, cartões de créditos... A comunicação com micro serviços é feito assyncronamente via mensageria utilizando AWS com o uso de tópicos e filas(utilizando tanto padrões como COMMANDS,EVENTS). Também é possível requisições via HTTP. Caso o usuário realize um GET para pegar as informações, não serão voltadas as informações por completo, como numero do cartao apenas os ultimos digitos, pix caso seja o documento a mesma coisa.
 
 ## Micro serviço products
 
@@ -20,4 +20,4 @@ Uso do metabase para coleta de dados internos, podendo gerar dashboards para mé
 
 - Garantia de entrega das mensagens, utilizando apenas o sqs e sns não garantimos que as mensagens sejam entregues, sendo assim necessitando optar por algum framework de mercado ou então construindo algo que faça algo parecido com algum de mercado.
 - Um alto input de dados nos micro serviços, por estar ligado com um API gateway direto com a aplicação, esse é um ponto fácil de gargalo. Pode ser pensado em algo como mensageria/lambda aonde o frontEnd ao envéz de passar pela aplicação, iria para um tópico aonde uma fila estaria inscrita nesse tópico e consequentemente a aplicação consumiria essa informação.
-- Custo em manter replicas dos bancos, caso sejam extremamente grandes...
+- Custo em manter réplicas dos bancos, caso sejam extremamente grandes...
